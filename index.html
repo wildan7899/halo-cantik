@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Kamu ❤️</title>
+    <style>
+        body {
+            background-color: #ffe6e6; /* Warna background pink pastel */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        h1 { 
+            color: #ff4d4d; 
+            font-size: 3em;
+            display: none; /* Disembunyikan dulu */
+            margin: 0;
+        }
+        p {
+            font-size: 1.2em;
+            color: #555;
+        }
+        button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            margin-top: 20px;
+        }
+        button:hover { 
+            background-color: #cc0000; 
+            transform: scale(1.05); /* Efek membesar pas disentuh */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p id="pesanAwal">Hai, aku punya sesuatu buat kamu...</p>
+        <button id="tombolBuka" onclick="bukaPesan()">Coba Pencet</button>
+        
+        <h1 id="pesanUtama">I Love You! ❤️</h1>
+    </div>
+
+    <script>
+        // Logika sederhana buat ngilangin tombol dan nampilin pesan
+        function bukaPesan() {
+            document.getElementById('tombolBuka').style.display = 'none';
+            document.getElementById('pesanAwal').style.display = 'none';
+            document.getElementById('pesanUtama').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
