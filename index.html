@@ -3,66 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buat Kamu ❤️</title>
+    <title>Sesuatu Buat Kamu ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #ffe6e6; /* Warna background pink pastel */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Gradasi warna background */
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden; /* Biar efek love-nya gak bikin layar bisa di-scroll */
         }
+        
         .container {
             text-align: center;
-            background: white;
-            padding: 50px;
+            /* Efek Kaca (Glassmorphism) */
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 60px 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px 0 rgba(255, 182, 193, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 400px;
+            width: 90%;
+            transition: all 0.5s ease;
         }
-        h1 { 
-            color: #ff4d4d; 
-            font-size: 3em;
-            display: none; /* Disembunyikan dulu */
-            margin: 0;
-        }
+
         p {
-            font-size: 1.2em;
+            font-size: 1.3em;
             color: #555;
+            margin-bottom: 30px;
         }
+
+        h1 { 
+            color: #ff4d6d; 
+            font-size: 3em;
+            margin: 0;
+            /* Teks disembunyikan pakai opacity biar ada efek fade in */
+            opacity: 0;
+            display: none;
+            transition: opacity 1s ease-in-out;
+        }
+
         button {
-            background-color: #ff4d4d;
+            background: linear-gradient(45deg, #ff758c 0%, #ff7eb3 100%);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 15px 40px;
             font-size: 18px;
-            border-radius: 30px;
+            font-weight: 600;
+            border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.2s, background-color 0.2s;
-            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
+
         button:hover { 
-            background-color: #cc0000; 
-            transform: scale(1.05); /* Efek membesar pas disentuh */
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 7px 20px rgba(255, 117, 140, 0.6);
+        }
+
+        /* Styling untuk love yang terbang */
+        .heart {
+            position: absolute;
+            bottom: -20px;
+            font-size: 24px;
+            animation: floatUp linear forwards;
+            z-index: -1; /* Biar love-nya di belakang kotak kaca */
+        }
+
+        @keyframes floatUp {
+            to {
+                transform: translateY(-120vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <p id="pesanAwal">Hai, aku punya sesuatu buat kamu...</p>
-        <button id="tombolBuka" onclick="bukaPesan()">Coba Pencet</button>
+
+    <div class="container" id="kotakUtama">
+        <p id="pesanAwal">Hai orang baik, aku ada sesuatu nih buat kamu. Coba buka deh...</p>
+        <button id="tombolBuka" onclick="bukaPesan()">Buka Pesan</button>
         
         <h1 id="pesanUtama">I Love You! ❤️</h1>
     </div>
 
     <script>
-        // Logika sederhana buat ngilangin tombol dan nampilin pesan
         function bukaPesan() {
-            document.getElementById('tombolBuka').style.display = 'none';
+            // Ngilangin teks awal dan tombol
             document.getElementById('pesanAwal').style.display = 'none';
-            document.getElementById('pesanUtama').style.display = 'block';
+            document.getElementById('tombolBuka').style.display = 'none';
+            
+            // Nampilin teks utama dengan efek fade in
+            const pesanUtama = document.getElementById('pesanUtama');
+            pesanUtama.style.display = 'block';
+            setTimeout(() => {
+                pesanUtama.style.opacity = '1';
+            }, 100);
+
+            // Bikin efek hujan love
+            hujanLove();
+        }
+
+        function hujanLove() {
+            // Bikin 50 love terbang berturut-turut
+            for (let i = 0; i < 50; i++) {
+                setTimeout(buatSatuLove, i * 100);
+            }
+        }
+
+        function buatSatuLove() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerText = '❤️';
+            
+            // Posisi kiri ke kanan diacak
+            heart.style.left = Math.random() * 100 + 'vw';
+            
+            // Ukuran love diacak dikit
+            heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            
+            // Kecepatan terbang diacak
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's'; 
+            
+            document.body.appendChild(heart);
+
+            // Bersihin love yang udah ke atas biar website ga berat
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
         }
     </script>
 </body>
