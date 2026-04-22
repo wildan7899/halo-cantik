@@ -4,14 +4,11 @@ using namespace std;
 int main(){
 
     string nama;
-    int a = 0;
 
-    while (a < 10) {
-        if (a % 2 == 0 ) {
-            cout << a << " ";
-        }
-        a++;
-    }
+    cout << "Masukkan nama anda: ";
+    getline (cin, nama);
+
+    cout << "Halo " << nama << "!" << endl;
 
     return 0;
 }
